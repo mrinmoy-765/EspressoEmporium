@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 require ('dotenv').config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 //middleware
 app.use(cors());
@@ -42,10 +42,27 @@ async function run() {
     }) 
 
 
-   //get data
+   //get all data
    app.get('/coffee', async(req,res) =>{
     const cursor = coffeCollection.find();
     const result = await cursor.toArray();
+    res.send(result);
+   })
+
+
+   //get specific data
+   app.get('/coffee/:id', async(req,res) =>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await coffeCollection.findOne(query);
+    res.send(result);
+   })
+
+   //delete data
+   app.delete('/coffee/:id',async(req,res) =>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await coffeCollection.deleteOne(query);
     res.send(result);
    })
 

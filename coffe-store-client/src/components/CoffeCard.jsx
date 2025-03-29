@@ -1,10 +1,40 @@
 import React, { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
-const CoffeeCard = ({ coffee }) => {
-  const { name, chef, supplier, category, taste, details, photo } = coffee;
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
+  const { _id, name, chef, supplier, category, taste, details, photo } = coffee;
 
+  //handle delete
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/coffee/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire("Deleted!", "Your Coffee has been deleted.", "success");
+  
+              // **Update state to remove deleted coffee**
+              setCoffees(coffees.filter((c) => c._id !== _id));
+            }
+          });
+      }
+    });
+  };
+  
   // State to handle modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,12 +65,14 @@ const CoffeeCard = ({ coffee }) => {
         {/* Button Section (Aligned Beside Details) */}
         <div className="flex flex-col items-center space-y-2 w-1/4">
           {/* Edit Button */}
+          <Link to = {`/updateCoffee/${_id}`}>
           <button className="p-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-300">
             <FaEdit size={18} />
           </button>
+          </Link>
 
           {/* Delete Button */}
-          <button className="p-2 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-300">
+          <button onClick={() => handleDelete(_id)} className="p-2 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-300">
             <RiDeleteBin6Fill size={18} />
           </button>
 
