@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import CoffeeCard from "./CoffeCard"; 
 
 const AllCoffee = () => {
-  const loadedCoffees = useLoaderData(); // Get initial data from loader
+  const loadedCoffees = useLoaderData(); // Get initial data from loader  
   const [coffees, setCoffees] = useState(loadedCoffees); // Store in state
 
   return (
