@@ -32,12 +32,24 @@ async function run() {
 
     const coffeCollection = client.db('ExpressoEmporium').collection('Coffee');
 
+
+    //insert data
     app.post('/coffee',async(req,res) =>{
       const newCoffee = req.body;
      // console.log(newCoffee);
      const result = await coffeCollection.insertOne(newCoffee);
      res.send(result)
     }) 
+
+
+   //get data
+   app.get('/coffee', async(req,res) =>{
+    const cursor = coffeCollection.find();
+    const result = await cursor.toArray();
+    res.send(result);
+   })
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });

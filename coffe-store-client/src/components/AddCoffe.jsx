@@ -39,13 +39,13 @@ const AddCoffe = () => {
        }
       });
 
-    // form.name.value = "";
-    // form.chef.value = "";
-    // form.supplier.value = "";
-    // form.category.value = "";
-    // form.taste.value = "";
-    // form.details.value = "";
-    // form.photo.value = "";
+    form.name.value = "";
+    form.chef.value = "";
+    form.supplier.value = "";
+    form.category.value = "";
+    form.taste.value = "";
+    form.details.value = "";
+    form.photo.value = "";
   };
 
   return (

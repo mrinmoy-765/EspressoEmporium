@@ -14,7 +14,9 @@ function App() {
           <button className="btn btn-active">Add Coffee</button>
         </Link>
 
-        <button className="btn btn-active btn-primary">Primary</button>
+        <Link to="/allCoffe">
+           <button className="btn btn-active btn-primary">All Coffee</button>
+        </Link>
         <button className="btn btn-active btn-secondary">Secondary</button>
         <button className="btn btn-active btn-accent">Accent</button>
         <button className="btn btn-active btn-info">Info</button>

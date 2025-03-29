@@ -8,6 +8,7 @@ import {
 import App from './App.jsx'
 import AddCoffe from './components/AddCoffe.jsx';
 import UpdateCoffe from './components/UpdateCoffe.jsx';
+import AllCoffe from './components/AllCoffe.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
   {
     path: "/addCoffe",
     element: <AddCoffe></AddCoffe>
+  },
+  {
+    path: "/allCoffe",
+    element: <AllCoffe></AllCoffe>,
+    loader: () => fetch('http://localhost:5000/coffee')
   },
   {
     path: "/updateCoffe",
