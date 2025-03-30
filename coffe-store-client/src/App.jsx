@@ -17,8 +17,12 @@ function App() {
         <Link to="/allCoffe">
            <button className="btn btn-active btn-primary">All Coffee</button>
         </Link>
-        <button className="btn btn-active btn-secondary">Secondary</button>
-        <button className="btn btn-active btn-accent">Accent</button>
+       <Link to = "/signin">
+          <button className="btn btn-active btn-secondary">Sign in</button>
+       </Link>
+        <Link to = "/signup">
+           <button className="btn btn-active btn-accent">Sign up</button>
+        </Link>
         <button className="btn btn-active btn-info">Info</button>
         <button className="btn btn-active btn-success">Success</button>
         <button className="btn btn-active btn-warning">Warning</button>
