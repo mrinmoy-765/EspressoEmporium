@@ -23,7 +23,9 @@ function App() {
         <Link to = "/signup">
            <button className="btn btn-active btn-accent">Sign up</button>
         </Link>
-        <button className="btn btn-active btn-info">Info</button>
+        <Link to = "/users">
+          <button className="btn btn-active btn-info">Users</button>
+        </Link>
         <button className="btn btn-active btn-success">Success</button>
         <button className="btn btn-active btn-warning">Warning</button>
         <button className="btn btn-active btn-error">Error</button>
