@@ -27,6 +27,7 @@ async function run() {
     await client.connect();
 
     const coffeCollection = client.db("ExpressoEmporium").collection("Coffee");
+    const userCollection = client.db('ExpressoEmporium').collection("users");
 
     //insert data
     app.post("/coffee", async (req, res) => {
@@ -84,6 +85,18 @@ async function run() {
       const result = await coffeCollection.deleteOne(query);
       res.send(result);
     });
+
+
+
+
+    //user related API's
+    app.post('/users', async(req, res) =>{
+      const newUser = req.body;
+    //  console.log('creating new user', newUser);
+      const result = await userCollection.insertOne(newUser);
+      res.send(result);
+    })
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });

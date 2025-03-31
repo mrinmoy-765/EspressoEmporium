@@ -12,12 +12,30 @@ const SignUp = () => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const name = e.target.name.value;
 
        // console.log('checkinggg',email,password);
 
         createUser(email,password)
         .then(result =>{
-            console.log(result.user)
+            console.log('user created at firebase',result.user);
+            const createdAt = result?.user?.metadata?.creationTime;
+            const newUser = {name, email, createdAt}
+            //save new user info to database
+            fetch('http://localhost:5000/users',{
+              method: 'POST',
+              headers: {
+              'content-type':'application/json'
+              },
+              body: JSON.stringfy(newUser)
+            })
+            .then(res => res.json())
+            .then(data =>{
+            //  console.log('user created to db', data);
+            if(data.insertedId){
+              alert('User Created at MOngoDB')
+            }
+            })
         })
         .catch(error =>{
             console.log('error', error)
@@ -37,6 +55,8 @@ const SignUp = () => {
           <div className="card-body">
             <fieldset className="fieldset">
               <form onSubmit={handleSignUp}>
+              <label className="fieldset-label">Name</label>
+              <input type="text" className="input" name="name" placeholder="Name" />
               <label className="fieldset-label">Email</label>
               <input type="email" className="input" name="email" placeholder="Email" />
               <label className="fieldset-label">Password</label>
