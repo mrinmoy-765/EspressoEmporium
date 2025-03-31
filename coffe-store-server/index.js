@@ -113,6 +113,20 @@ async function run() {
       const result = await userCollection.deleteOne(filter);
       res.send(result);
     });
+
+    //update user
+    app.patch('/users', async (req, res) =>{
+      const email = req.body.email;
+      const filter = { email };
+      const updateDoc = {
+        $set: {
+          lastSignInTime: req.body?.lastSignInTime
+        }
+      }
+        
+      const result = await userCollection.updateOne(filter,updateDoc);
+      res.send(result);
+    })
     
 
 

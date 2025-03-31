@@ -1,5 +1,6 @@
 import React from "react";
 import { AuthContext } from "../Providers/AuthProvider";
+import { useContext } from "react";
 
 const Signin = () => {
 
@@ -16,6 +17,22 @@ const Signin = () => {
       signInUser(email,password)
       .then(result =>{
         console.log(result.user);
+
+        //update last login time
+        const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+        const loginInfo = {email, lastSignInTime};
+
+        fetch(`http://localhost:5000/users`,{
+          method : 'PATCH',
+          haders: {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify(loginInfo)
+        })
+        .then(res => res.json())
+        .then(data =>{
+          console.log('sign in info updated in db', data );
+        })
       })
       .catch(error => {
           console.log(error);
